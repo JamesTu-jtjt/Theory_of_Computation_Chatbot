@@ -13,7 +13,7 @@ As the creator of this chatbot, I am proud to offer a tool that helps beginners 
 + Project Name: Volleyball Practice Chatbot
 ![fsm](./img/volleyball.jpg)
 + Line ID: @292xgzrc
-+ QRCode: ![fsm](./img/qrcode.png)
++ QRCode: ![fsm]   (./img/qrcode.png)
 
 ### Pictures for Demonstration: 
 The following are the main functions and services provided by the chatbot.
