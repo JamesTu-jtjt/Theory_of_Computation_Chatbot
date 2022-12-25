@@ -7,7 +7,7 @@ A Line bot based on a finite state machine.
 
 ## Project Description: 
 ### Project Summary 
-	As the creator of this chatbot, I am proud to offer a tool that helps beginners understand the rules and positions of volleyball. As someone who is deeply passionate about the sport, I understand the importance of learning the basics and improving your skills. That's why our chatbot is designed to provide a clear and concise overview of the rules and positions, as well as recommend videos for practicing. Whether you're new to the sport or just need a refresher, our chatbot is here to help. I hope that by using our chatbot, more people will be able to discover and enjoy the wonderful world of volleyball.
+As the creator of this chatbot, I am proud to offer a tool that helps beginners understand the rules and positions of volleyball. As someone who is deeply passionate about the sport, I understand the importance of learning the basics and improving your skills. That's why our chatbot is designed to provide a clear and concise overview of the rules and positions, as well as recommend videos for practicing. Whether you're new to the sport or just need a refresher, our chatbot is here to help. I hope that by using our chatbot, more people will be able to discover and enjoy the wonderful world of volleyball.
 
 ### Basic Information
 + Project Name: Volleyball Practice Chatbot
