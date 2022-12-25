@@ -8,54 +8,84 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 from fsm import TocMachine
-from utils import send_text_message
+from utils import send_text_message, send_image_message
 
 load_dotenv()
 
 
 machine = TocMachine(
-    states=["user", "input_goal", "set", "receive", "serve", "spike", "rules"],
+    states=["user", "main_menu", "drills", "positions", "rules", "help", "set", "receive", "serve", "spike", "block"],
     transitions=[
         {
             "trigger": "advance",
             "source": "user",
-            "dest": "input_goal",
-            "conditions": "is_going_to_input_goal",
+            "dest": "main_menu",
+            "conditions": "is_going_to_main_menu",
         },
         {
             "trigger": "advance",
-            "source": "input_goal",
-            "dest": "set",
-            "conditions": "is_going_to_set",
+            "source": ["main_menu", "drills", "positions", "rules", "help"],
+            "dest": "main_menu",
+            "conditions": "is_going_to_main_menu",
         },
         {
             "trigger": "advance",
-            "source": "input_goal",
-            "dest": "receive",
-            "conditions": "is_going_to_receive",
+            "source": "main_menu",
+            "dest": "drills",
+            "conditions": "is_going_to_drills",
         },
         {
             "trigger": "advance",
-            "source": "input_goal",
-            "dest": "serve",
-            "conditions": "is_going_to_serve",
+            "source": "main_menu",
+            "dest": "positions",
+            "conditions": "is_going_to_positions",
         },
         {
             "trigger": "advance",
-            "source": "input_goal",
-            "dest": "spike",
-            "conditions": "is_going_to_spike",
-        },
-        {
-            "trigger": "advance",
-            "source": ["set", "receive", "serve", "spike", "input_goal"],
+            "source": "main_menu",
             "dest": "rules",
             "conditions": "is_going_to_rules",
         },
         {
             "trigger": "advance",
-            "source": ["set", "receive", "serve", "spike", "rules"],
-            "dest": "input_goal",
+            "source": "drills",
+            "dest": "set",
+            "conditions": "is_going_to_set",
+        },
+        {
+            "trigger": "advance",
+            "source": "drills",
+            "dest": "receive",
+            "conditions": "is_going_to_receive",
+        },
+        {
+            "trigger": "advance",
+            "source": "drills",
+            "dest": "serve",
+            "conditions": "is_going_to_serve",
+        },
+        {
+            "trigger": "advance",
+            "source": "drills",
+            "dest": "spike",
+            "conditions": "is_going_to_spike",
+        },
+        {
+            "trigger": "advance",
+            "source":  "drills",
+            "dest": "block",
+            "conditions": "is_going_to_block",
+        },
+        {
+            "trigger": "advance",
+            "source": ["set", "receive", "serve", "spike", "block"],
+            "dest": "drills",
+        },
+        {
+            "trigger": "advance",
+            "source":  ["drills", "positions", "rules", "main_menu"],
+            "dest": "help",
+            "conditions": "is_going_to_help",
         },
     ],
     initial="user",
@@ -79,32 +109,6 @@ if channel_access_token is None:
 line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
 
-
-@app.route("/callback", methods=["POST"])
-def callback():
-    signature = request.headers["X-Line-Signature"]
-    # get request body as text
-    body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
-
-    # parse webhook body
-    try:
-        events = parser.parse(body, signature)
-    except InvalidSignatureError:
-        abort(400)
-
-    # if event is MessageEvent and message is TextMessage, then echo text
-    for event in events:
-        if not isinstance(event, MessageEvent):
-            continue
-        if not isinstance(event.message, TextMessage):
-            continue
-
-        line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(text=event.message.text)
-        )
-
-    return "OK"
 
 
 @app.route("/webhook", methods=["POST"])
@@ -132,21 +136,24 @@ def webhook_handler():
         print(f"REQUEST BODY: \n{body}")
         response = machine.advance(event)
         if response == False:
+            if event.message.text.lower() == 'fsm':
+                send_image_message(event.reply_token, 'https://0fca-140-116-20-133.jp.ngrok.io/show-fsm')
             #send_text_message(event.reply_token, "Not Entering any State")
             if machine.state == 'user':
-                send_text_message(event.reply_token, 'Welcome to this simple Volleyball Drill Generator for beginners~\n We can recommend different drills for you to improve your volleyball skills and help you review the rules of volleyball. \n Please input "start" to begin.')
-            elif machine.state == 'input_goal':
-                send_text_message(event.reply_token, 'What would you like to practice today? Please enter "serve", "receive", "set", or "spike" to get drills and "rules" to review the rules of volleyball.')
-            elif machine.state == 'serve' or machine.state == 'receive' or machine.state == 'set' or machine.state == 'spike' or machine.state == 'rules':
-                send_text_message(event.reply_token, 'Please enter "start" to begin next drill or "rules" to review the rules of volleyball.')
-            
+                send_text_message(event.reply_token, 'Welcome to this simple Volleyball Drill Generator for beginners~\n We can recommend different drills for you to improve your volleyball skills and help you review the rules of volleyball. \n Please input "menu" to begin.')
+            elif machine.state == 'main_menu':
+                send_text_message(event.reply_token, 'Please enter "menu" or select a service.')
+            elif machine.state == 'drills':
+                send_text_message(event.reply_token, 'What would you like to practice today? You can also enter "menu" to return to menu.')
+            else:
+                send_text_message(event.reply_token, 'Please enter "menu" to return to menu or "help" to contact creator. Thank you!')
     return "OK"
 
 
 @app.route("/show-fsm", methods=["GET"])
 def show_fsm():
-    machine.get_graph().draw("fsm.png", prog="dot", format="png")
-    return send_file("fsm.png", mimetype="image/png")
+    machine.get_graph().draw("fsm.svg", prog="dot", format="svg")
+    return send_file("fsm.svg", mimetype="image/svg")
 
 
 if __name__ == "__main__":
