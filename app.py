@@ -14,21 +14,49 @@ load_dotenv()
 
 
 machine = TocMachine(
-    states=["user", "state1", "state2"],
+    states=["user", "input_goal", "set", "receive", "serve", "spike", "rules"],
     transitions=[
         {
             "trigger": "advance",
             "source": "user",
-            "dest": "state1",
-            "conditions": "is_going_to_state1",
+            "dest": "input_goal",
+            "conditions": "is_going_to_input_goal",
         },
         {
             "trigger": "advance",
-            "source": "user",
-            "dest": "state2",
-            "conditions": "is_going_to_state2",
+            "source": "input_goal",
+            "dest": "set",
+            "conditions": "is_going_to_set",
         },
-        {"trigger": "go_back", "source": ["state1", "state2"], "dest": "user"},
+        {
+            "trigger": "advance",
+            "source": "input_goal",
+            "dest": "receive",
+            "conditions": "is_going_to_receive",
+        },
+        {
+            "trigger": "advance",
+            "source": "input_goal",
+            "dest": "serve",
+            "conditions": "is_going_to_serve",
+        },
+        {
+            "trigger": "advance",
+            "source": "input_goal",
+            "dest": "spike",
+            "conditions": "is_going_to_spike",
+        },
+        {
+            "trigger": "advance",
+            "source": ["set", "receive", "serve", "spike", "input_goal"],
+            "dest": "rules",
+            "conditions": "is_going_to_rules",
+        },
+        {
+            "trigger": "advance",
+            "source": ["set", "receive", "serve", "spike", "rules"],
+            "dest": "input_goal",
+        },
     ],
     initial="user",
     auto_transitions=False,
@@ -104,8 +132,14 @@ def webhook_handler():
         print(f"REQUEST BODY: \n{body}")
         response = machine.advance(event)
         if response == False:
-            send_text_message(event.reply_token, "Not Entering any State")
-
+            #send_text_message(event.reply_token, "Not Entering any State")
+            if machine.state == 'user':
+                send_text_message(event.reply_token, 'Welcome to this simple Volleyball Drill Generator for beginners~\n We can recommend different drills for you to improve your volleyball skills and help you review the rules of volleyball. \n Please input "start" to begin.')
+            elif machine.state == 'input_goal':
+                send_text_message(event.reply_token, 'What would you like to practice today? Please enter "serve", "receive", "set", or "spike" to get drills and "rules" to review the rules of volleyball.')
+            elif machine.state == 'serve' or machine.state == 'receive' or machine.state == 'set' or machine.state == 'spike' or machine.state == 'rules':
+                send_text_message(event.reply_token, 'Please enter "start" to begin next drill or "rules" to review the rules of volleyball.')
+            
     return "OK"
 
 
