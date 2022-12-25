@@ -60,15 +60,15 @@ class TocMachine(GraphMachine):
         setter = ['https://global-uploads.webflow.com/5b44edefca321a1e2d0c2aa6/60024e237b140a08969279dd_Dimensions-Sports-Volleyball-Volleyball-Set-Icon.svg', 'https://www.improveyourvolley.com/volleyball-setter.html', 'setter']
         middle_blocker = ['https://global-uploads.webflow.com/5b44edefca321a1e2d0c2aa6/60024c8cffdd737c80e4e0a7_Dimensions-Sports-Volleyball-Volleyball-Block-Icon.svg', 'https://www.improveyourvolley.com/volleyball-blocker.html', 'blocker']
         hitter = ['https://global-uploads.webflow.com/5b44edefca321a1e2d0c2aa6/60024dbaee042279bb8ef7a4_Dimensions-Sports-Volleyball-Volleyball-Spike-Attack-Icon.svg', 'https://www.improveyourvolley.com/volleyball-outside-hitter.html', 'hitter']
-        libero = ['https://global-uploads.webflow.com/5b44edefca321a1e2d0c2aa6/60024cd71ba6f767f05749a7_Dimensions-Sports-Volleyball-Volleyball-Dive-Icon.svg', 'libero']
+        libero = ['https://global-uploads.webflow.com/5b44edefca321a1e2d0c2aa6/60024cd71ba6f767f05749a7_Dimensions-Sports-Volleyball-Volleyball-Dive-Icon.svg', 'https://www.improveyourvolley.com/volleyball-libero.html', 'libero']
         position_list = [overall, setter, middle_blocker, hitter, libero]
         col = []
-        for i in range(5):
+        for i in position_list:
             c = ImageCarouselColumn(
-                image_url = position_list[i][0],
+                image_url = i[0],
                 action = URITemplateAction(
-                    label = position_list[i][2],
-                    uri = position_list[i][1]
+                    label = i[2],
+                    uri = i[1]
                 )
             )
             col.append(c)

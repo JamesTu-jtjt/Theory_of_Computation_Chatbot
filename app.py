@@ -11,7 +11,7 @@ from fsm import TocMachine
 from utils import send_text_message, send_image_message
 
 load_dotenv()
-
+fsm_link = 'https://c281-219-71-91-30.jp.ngrok.io/show-fsm'
 
 machine = TocMachine(
     states=["user", "main_menu", "drills", "positions", "rules", "help", "set", "receive", "serve", "spike", "block"],
@@ -110,7 +110,6 @@ line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
 
 
-
 @app.route("/webhook", methods=["POST"])
 def webhook_handler():
     signature = request.headers["X-Line-Signature"]
@@ -137,7 +136,7 @@ def webhook_handler():
         response = machine.advance(event)
         if response == False:
             if event.message.text.lower() == 'fsm':
-                send_image_message(event.reply_token, 'https://c281-219-71-91-30.jp.ngrok.io/show-fsm')
+                send_image_message(event.reply_token, fsm_link)
             #send_text_message(event.reply_token, "Not Entering any State")
             if machine.state == 'user':
                 send_text_message(event.reply_token, 'Welcome to this simple Volleyball Drill Generator for beginners~\n We can recommend different drills for you to improve your volleyball skills and help you review the rules of volleyball. \n Please input "menu" to begin.')

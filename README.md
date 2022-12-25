@@ -1,159 +1,44 @@
-# TOC Project 2020
+# TOC Project 2022: Volleyball Practice Helper for Beginners
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/dc7fa47fcd809b99d087/maintainability)](https://codeclimate.com/github/NCKU-CCS/TOC-Project-2020/maintainability)
+> Code for TOC Linebot Project 2022
+> By James Tu/杜霙笙 /H24086032
 
-[![Known Vulnerabilities](https://snyk.io/test/github/NCKU-CCS/TOC-Project-2020/badge.svg)](https://snyk.io/test/github/NCKU-CCS/TOC-Project-2020)
+A Line bot based on a finite state machine. 
 
+## Project Description: 
+### Project Summary 
+	As the creator of this chatbot, I am proud to offer a tool that helps beginners understand the rules and positions of volleyball. As someone who is deeply passionate about the sport, I understand the importance of learning the basics and improving your skills. That's why our chatbot is designed to provide a clear and concise overview of the rules and positions, as well as recommend videos for practicing. Whether you're new to the sport or just need a refresher, our chatbot is here to help. I hope that by using our chatbot, more people will be able to discover and enjoy the wonderful world of volleyball.
 
-Template Code for TOC Project 2020
+### Basic Information
++ Project Name: Volleyball Practice Chatbot
+![fsm](./img/volleyball.jpg)
++ Line ID: @292xgzrc
++ QRCode: ![fsm](./img/qrcode.png)
 
-A Line bot based on a finite state machine
+### Pictures for Demonstration: 
+The following are the main functions and services provided by the chatbot.
++ A start menu for you to choose what service you need. 
+![fsm](./img/start.png)
 
-More details in the [Slides](https://hackmd.io/@TTW/ToC-2019-Project#) and [FAQ](https://hackmd.io/s/B1Xw7E8kN)
++ A drills menu under the drills service that recommends videos for you to watch and practice accordingly. The topics covered include serving, receiving, setting, spiking, and blocking.  
+![fsm](./img/drills.png)
 
-## Setup
++ A list of recommended websites to browse to get to know more about the positions in volleyball. Overall layout depicts the positions on the court, and the rest describe each position based on the role in detail. The positions include, setter, hitter, middle-blocker, and libero. 
+![fsm](./img/positions.png)
 
-### Prerequisite
-* Python 3.6
-* Pipenv
-* Facebook Page and App
-* HTTPS Server
-
-#### Install Dependency
-```sh
-pip3 install pipenv
-
-pipenv --three
-
-pipenv install
-
-pipenv shell
-```
-
-* pygraphviz (For visualizing Finite State Machine)
-    * [Setup pygraphviz on Ubuntu](http://www.jianshu.com/p/a3da7ecc5303)
-	* [Note: macOS Install error](https://github.com/pygraphviz/pygraphviz/issues/100)
-
-
-#### Secret Data
-You should generate a `.env` file to set Environment Variables refer to our `.env.sample`.
-`LINE_CHANNEL_SECRET` and `LINE_CHANNEL_ACCESS_TOKEN` **MUST** be set to proper values.
-Otherwise, you might not be able to run your code.
-
-#### Run Locally
-You can either setup https server or using `ngrok` as a proxy.
-
-#### a. Ngrok installation
-* [ macOS, Windows, Linux](https://ngrok.com/download)
-
-or you can use Homebrew (MAC)
-```sh
-brew cask install ngrok
-```
-
-**`ngrok` would be used in the following instruction**
-
-```sh
-ngrok http 8000
-```
-
-After that, `ngrok` would generate a https URL.
-
-#### Run the sever
-
-```sh
-python3 app.py
-```
-
-#### b. Servo
-
-Or You can use [servo](http://serveo.net/) to expose local servers to the internet.
++ A recommended website for you to confirm your knowledge about the ruled of volleyball and help feature that (temporarily) allows you to know the contact information of the creator so that necessary fixes or improvements can be made to the chatbot. 
+![fsm](./img/rules_help.png)
 
 
 ## Finite State Machine
-![fsm](./img/show-fsm.png)
+![fsm](./img/fsm.png)
+### State Description:
++ user: used to display welcome message.
++ main menu: the initial state that allows the user to choose what services he/she requires.
++ drills: the drills menu for the user to choose what he/she wants to practice. 
++ serve, receive, set, spike, block: states that give the user their respective tutorials. 
++ positions: state that includes links and figures of the information on the positions in volleyball. 
++ rules: state that provides resources for the rules of volleyball. 
++ help: state that includes the creator's contact information. 
 
-## Usage
-The initial state is set to `user`.
 
-Every time `user` state is triggered to `advance` to another state, it will `go_back` to `user` state after the bot replies corresponding message.
-
-* user
-	* Input: "go to state1"
-		* Reply: "I'm entering state1"
-
-	* Input: "go to state2"
-		* Reply: "I'm entering state2"
-
-## Deploy
-Setting to deploy webhooks on Heroku.
-
-### Heroku CLI installation
-
-* [macOS, Windows](https://devcenter.heroku.com/articles/heroku-cli)
-
-or you can use Homebrew (MAC)
-```sh
-brew tap heroku/brew && brew install heroku
-```
-
-or you can use Snap (Ubuntu 16+)
-```sh
-sudo snap install --classic heroku
-```
-
-### Connect to Heroku
-
-1. Register Heroku: https://signup.heroku.com
-
-2. Create Heroku project from website
-
-3. CLI Login
-
-	`heroku login`
-
-### Upload project to Heroku
-
-1. Add local project to Heroku project
-
-	heroku git:remote -a {HEROKU_APP_NAME}
-
-2. Upload project
-
-	```
-	git add .
-	git commit -m "Add code"
-	git push -f heroku master
-	```
-
-3. Set Environment - Line Messaging API Secret Keys
-
-	```
-	heroku config:set LINE_CHANNEL_SECRET=your_line_channel_secret
-	heroku config:set LINE_CHANNEL_ACCESS_TOKEN=your_line_channel_access_token
-	```
-
-4. Your Project is now running on Heroku!
-
-	url: `{HEROKU_APP_NAME}.herokuapp.com/callback`
-
-	debug command: `heroku logs --tail --app {HEROKU_APP_NAME}`
-
-5. If fail with `pygraphviz` install errors
-
-	run commands below can solve the problems
-	```
-	heroku buildpacks:set heroku/python
-	heroku buildpacks:add --index 1 heroku-community/apt
-	```
-
-	refference: https://hackmd.io/@ccw/B1Xw7E8kN?type=view#Q2-如何在-Heroku-使用-pygraphviz
-
-## Reference
-[Pipenv](https://medium.com/@chihsuan/pipenv-更簡單-更快速的-python-套件管理工具-135a47e504f4) ❤️ [@chihsuan](https://github.com/chihsuan)
-
-[TOC-Project-2019](https://github.com/winonecheng/TOC-Project-2019) ❤️ [@winonecheng](https://github.com/winonecheng)
-
-Flask Architecture ❤️ [@Sirius207](https://github.com/Sirius207)
-
-[Line line-bot-sdk-python](https://github.com/line/line-bot-sdk-python/tree/master/examples/flask-echo)
