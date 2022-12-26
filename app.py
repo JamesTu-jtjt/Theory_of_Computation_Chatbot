@@ -11,7 +11,7 @@ from fsm import TocMachine
 from utils import send_text_message, send_image_message
 
 load_dotenv()
-fsm_link = 'https://c281-219-71-91-30.jp.ngrok.io/show-fsm'
+fsm_link = 'https://c4c1-2001-b400-e28d-dfdb-d498-8ae8-d501-8755.jp.ngrok.io/show-fsm'
 
 machine = TocMachine(
     states=["user", "main_menu", "drills", "positions", "rules", "help", "set", "receive", "serve", "spike", "block"],

@@ -2,7 +2,6 @@
 
 > Code for TOC Linebot Project 2022
 > By James Tu/杜霙笙 /H24086032
-
 A Line bot based on a finite state machine. 
 
 ## Project Description: 
@@ -40,5 +39,3 @@ The following are the main functions and services provided by the chatbot.
 + positions: state that includes links and figures of the information on the positions in volleyball. 
 + rules: state that provides resources for the rules of volleyball. 
 + help: state that includes the creator's contact information. 
-
-
