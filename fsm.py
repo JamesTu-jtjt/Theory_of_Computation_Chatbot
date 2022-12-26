@@ -41,11 +41,11 @@ class TocMachine(GraphMachine):
         return text.lower() == "drills"
 
     def on_enter_drills(self, event):
-        serve = 'https://global-uploads.webflow.com/5b44edefca321a1e2d0c2aa6/60024c3c35952665dc91bc80_Dimensions-Sports-Volleyball-Volleyball-Serve-Underhand-Icon.svg'
-        set_ball = 'https://global-uploads.webflow.com/5b44edefca321a1e2d0c2aa6/60024e237b140a08969279dd_Dimensions-Sports-Volleyball-Volleyball-Set-Icon.svg'
-        receive_ball = 'https://global-uploads.webflow.com/5b44edefca321a1e2d0c2aa6/60024d423f1376603ea4346e_Dimensions-Sports-Volleyball-Volleyball-Dig-Icon.svg'
-        spike = 'https://global-uploads.webflow.com/5b44edefca321a1e2d0c2aa6/60024dd43f1376025fa43567_Dimensions-Sports-Volleyball-Volleyball-Spike-Attack-Men.svg'
-        block = 'https://global-uploads.webflow.com/5b44edefca321a1e2d0c2aa6/60024c8cffdd737c80e4e0a7_Dimensions-Sports-Volleyball-Volleyball-Block-Icon.svg'
+        serve = 'https://raw.githubusercontent.com/JamesTu-jtjt/Theory_of_Computation_Chatbot/main/img/serve.png'
+        set_ball = 'https://raw.githubusercontent.com/JamesTu-jtjt/Theory_of_Computation_Chatbot/main/img/set.png'
+        receive_ball = 'https://raw.githubusercontent.com/JamesTu-jtjt/Theory_of_Computation_Chatbot/main/img/receive.png'
+        spike = 'https://raw.githubusercontent.com/JamesTu-jtjt/Theory_of_Computation_Chatbot/main/img/spike.png'
+        block = 'https://raw.githubusercontent.com/JamesTu-jtjt/Theory_of_Computation_Chatbot/main/img/block.png'
         urls = [serve, receive_ball, set_ball, spike, block]
         labels = ['Serve', 'Receive', 'Set', 'Spike', 'Block']
         texts = ['Serve', 'Receive', 'Set', 'Spike', 'Block']
@@ -57,10 +57,10 @@ class TocMachine(GraphMachine):
     
     def on_enter_positions(self, event):
         overall = ['https://volleyballvault.com/wp-content/uploads/2022/04/VOLLEYBALLpositions.jpg?ezimgfmt=rs:352x201/rscb1/ngcb1/notWebP', 'http://www.volleyballadvisors.com/6-positions-of-volleyball.html', 'court layout']
-        setter = ['https://global-uploads.webflow.com/5b44edefca321a1e2d0c2aa6/60024e237b140a08969279dd_Dimensions-Sports-Volleyball-Volleyball-Set-Icon.svg', 'https://www.improveyourvolley.com/volleyball-setter.html', 'setter']
-        middle_blocker = ['https://global-uploads.webflow.com/5b44edefca321a1e2d0c2aa6/60024c8cffdd737c80e4e0a7_Dimensions-Sports-Volleyball-Volleyball-Block-Icon.svg', 'https://www.improveyourvolley.com/volleyball-blocker.html', 'blocker']
-        hitter = ['https://global-uploads.webflow.com/5b44edefca321a1e2d0c2aa6/60024dbaee042279bb8ef7a4_Dimensions-Sports-Volleyball-Volleyball-Spike-Attack-Icon.svg', 'https://www.improveyourvolley.com/volleyball-outside-hitter.html', 'hitter']
-        libero = ['https://global-uploads.webflow.com/5b44edefca321a1e2d0c2aa6/60024cd71ba6f767f05749a7_Dimensions-Sports-Volleyball-Volleyball-Dive-Icon.svg', 'https://www.improveyourvolley.com/volleyball-libero.html', 'libero']
+        setter = ['https://raw.githubusercontent.com/JamesTu-jtjt/Theory_of_Computation_Chatbot/main/img/setter.png', 'https://www.improveyourvolley.com/volleyball-setter.html', 'setter']
+        middle_blocker = ['https://raw.githubusercontent.com/JamesTu-jtjt/Theory_of_Computation_Chatbot/main/img/middle.png', 'https://www.improveyourvolley.com/volleyball-blocker.html', 'blocker']
+        hitter = ['https://raw.githubusercontent.com/JamesTu-jtjt/Theory_of_Computation_Chatbot/main/img/hitter.png', 'https://www.improveyourvolley.com/volleyball-outside-hitter.html', 'hitter']
+        libero = ['https://raw.githubusercontent.com/JamesTu-jtjt/Theory_of_Computation_Chatbot/main/img/libero.png', 'https://www.improveyourvolley.com/volleyball-libero.html', 'libero']
         position_list = [overall, setter, middle_blocker, hitter, libero]
         col = []
         for i in position_list:
