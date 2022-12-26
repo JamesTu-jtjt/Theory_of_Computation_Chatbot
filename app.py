@@ -136,9 +136,10 @@ def webhook_handler():
         response = machine.advance(event)
         if response == False:
             if event.message.text.lower() == 'fsm':
-                send_image_message(event.reply_token, fsm_link)
+                #send_image_message(event.reply_token, fsm_link)
+                send_image_message(event.reply_token, "https://raw.githubusercontent.com/JamesTu-jtjt/Theory_of_Computation_Chatbot/main/img/fsm.png")
             #send_text_message(event.reply_token, "Not Entering any State")
-            if machine.state == 'user':
+            elif machine.state == 'user':
                 send_text_message(event.reply_token, 'Welcome to this simple Volleyball Drill Generator for beginners~\n We can recommend different drills for you to improve your volleyball skills and help you review the rules of volleyball. \n Please input "menu" to begin.')
             elif machine.state == 'main_menu':
                 send_text_message(event.reply_token, 'Please enter "menu" or select a service.')

@@ -93,7 +93,7 @@ class TocMachine(GraphMachine):
         text_mes += 'We strive to provide the best possible service and are deeply sorry that our chatbot was not able to fulfill your needs. '
         text_mes += 'We take all feedback seriously and will work to improve the performance of our chatbot in the future. '
         text_mes += 'Thank you for bringing this to our attention. '
-        text_mes += 'If you would like to provide further feedback or have any further questions, please do not hesitate to contact us at jamestu6301@gmail.com. '
+        text_mes += 'If you would like to provide further feedback or have any further questions, please do not hesitate to contact us at ' + 'jamestu6301@gmail.com . '
         text_mes += 'We hope to have the opportunity to serve you better in the future.\n\nSincerely,\nJames'
         send_text_message(event.reply_token, text_mes)
     
