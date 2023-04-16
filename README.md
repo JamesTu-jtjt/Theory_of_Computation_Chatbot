@@ -11,7 +11,7 @@ As the creator of this chatbot, I am proud to offer a tool that helps beginners 
 ### Basic Information
 + Project Name: Volleyball Practice Chatbot
  ![fsm](./img/Volleyball.jpg)
-+ Line ID: @292xgzrc
++ Line ID: @292xgzrc (Currently out of service, please contact jamestu6301@gmail.com if you wish to use this service)
 + QRCode:    ![fsm](./img/qrcode.png)
 
 ### Pictures for Demonstration: 
